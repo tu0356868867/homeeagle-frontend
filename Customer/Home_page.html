@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Looking For Apartment</title>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<header>
+
+<div class="logo">
+    🏠 Home
+</div>
+
+<nav>
+    <a href="Home_page.html">Home</a>
+    <a href="Lookingfor_Roomate.html">Find Roommate</a>
+    <a href="Waiting_Roomate.html">Waiting Roomate</a>
+    <a href="#" id = "moreBtn">My Account</a>
+     <!-- Popup -->
+    <div class="popup" id="popup">
+
+            <a class="popup-item" onclick="openProfilePopup()">
+            <i class="fa-regular fa-circle-user"></i>
+            <span>Profile</span>
+            </a>
+
+            <a class="popup-item"  id="historyBtn">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>History</span>
+            </a>
+
+            <a class="popup-item" onclick="openFeedbackPopup()">
+                <i class="fa-regular fa-comment"></i>
+                <span>Feedback</span>
+            </a>
+             <!-- Popup History -->
+            <div class="history-popup" id="history">
+                <!-- HEADER -->
+
+                 <div class="history-header">
+                    <div class="history-title">
+                        Đặt phòng
+                    </div>
+                </div>
+            
+
+                 <div class="history-tabs">
+                    <a class="history-tab">Địa Chỉ</a>
+
+                    <a class="history-tab">Trạng Thái</a>
+                </div>
+
+   
+            <!-- CONTENT -->
+             <div class ="history-content"
+                id="historyContent">
+             </div>
+
+        </div>
+            <div class="divider"></div>
+
+        <a class="popup-item" id="logoutBtn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+             <span>Logout</span>
+        </a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Find Your Perfect Apartment</h1>
+
+<p>
+    Search rooms and connect with potential landlord.
+</p>
+
+</section>
+
+<div class="container2">
+
+<aside class="filter-panel">
+        <h2>Bộ lọc</h2>
+
+        <div class="filter-group">
+            <label>Giá</label>
+            <select id = "price-filter">
+                <option>Tất cả</option>
+                <option value="under-4m">Dưới 4 triệu</option>
+                <option value="4-7m">4-7 triệu</option>
+                <option value="over-7m">Trên 7 triệu</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Khu vực</label>
+            <input type="text" id = "address" placeholder="Address">
+        </div>
+
+        <div class="filter-group">
+            <label>Loại hình</label>
+            <select  id = "type" >
+                <option>Tất cả</option>
+                <option>2 Ngủ 1 Khách</option>
+                <option>1 Ngủ 1 Khách</option>
+                <option>Duplex</option>
+                <option>Studio</option>
+                <option>Home Stay </option>
+                <option>Nhà đất </option>
+                <option>Mặt bằng văn phòng, kinh doanh </option>
+            </select>
+        </div>
+
+        <button class="btn-filter" onclick="filterhome()" id="searchBtn">Lọc</button>
+</aside>
+
+<div id="profileOverlay" class="profile-overlay">
+
+        <div class="profile-popup">
+            <!-- TITLE -->
+            <div class="profile-title">
+                Edit profile
+            </div>
+            <!-- USER NAME -->
+            <div class="input-group">
+                <label>
+                    Username
+                </label>
+                <input
+                    type="text" id="Username"  placeholder="username" 
+                    autocomplete="name" minlength="3" maxlength="30"
+                    pattern="^[a-zA-Z0-9_]+$" required>
+            </div>
+            <!-- PASSWORD -->
+            <div class="input-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password" id="password" placeholder="Tối thiểu 8 ký tự" minlength="8" maxlength="100" required>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="profile-description">
+                Your profile helps us recognize you in our system.
+            </div>
+
+
+            <!-- BUTTONS -->
+            <div class="profile-actions">
+
+                <button
+                    class="cancel-button"
+                    onclick="closeProfilePopup()">
+                    Cancel
+                </button>
+
+                <button
+                    class="save-button"
+                    onclick="saveProfile()">
+                    Save
+                </button>
+
+            </div>
+
+        </div>
+
+</div>
+
+<div id="bookingPopup" class="booking-overlay">
+    <div class="booking-popup">
+
+        <!-- Tiêu đề -->
+        <div class="booking-header">
+            <h2>Đặt lịch xem phòng</h2>
+            <button class="close-btn" onclick="closeBookingPopup()">×</button>
+        </div>
+
+        <!-- Chọn ngày -->
+        <div class="booking-group">
+            <label for="bookingDate">Chọn ngày</label>
+            <input type="date" id="bookingDate">
+        </div>
+
+        <!-- Nút -->
+        <div class="booking-actions">
+            <button class="cancel-btn" onclick="closeBookingPopup()">
+                Hủy
+            </button>
+
+            <button class="confirm-btn" onclick="openAppointmentPopup()">
+                Xác nhận
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Overlay -->
+<div id="appointmentOverlay" class="popup-overlay">
+
+    <!-- Popup -->
+    <div id="appointmentPopup" class="appointment-popup">
+
+        <button id="closeAppointment" class="close-btn" onclick="closeAppointmentPopup()">&times;</button>
+
+        <h2>Thông tin lịch hẹn</h2>
+
+        <div class="appointment-info">
+            <div class="info-row">
+                <span>Địa chỉ</span>
+                <strong id="appointmentAddress">---</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Điện thoại(vui lòng gọi trước 30')</span>
+                <strong id="appointmentContact">---</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Loại phòng</span>
+                <strong id="appointmentType">---</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Ngày hẹn</span>
+                <strong id="appointmentDate">---</strong>
+            </div>
+        </div>
+
+        <button id="confirmAppointment" class="confirm-btn" onclick="closeAppointmentPopup()">
+            Đã hiểu
+        </button>
+
+    </div>
+</div>
+
+<div class="feedbackOverlay" id = "FeedbackOverlay">
+    <div class="feedback-container">
+        <h2>Feedback</h2>
+        <div class="feedback-content">
+
+            <textarea
+                placeholder="Your feedback helps us improve our service..."
+                id="content" 
+                maxlength="1000"
+                required>
+            </textarea>
+        </div>
+
+        <button type="submit"
+                onclick = saveFeedBack()>
+            Send
+        </button>
+    </div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="js/script.js"></script>
+<script src="js/home.js"></script>
+
+<main class="post-section">
+        <h2>Danh sách bài đăng</h2>
+
+        <div class="post-list" id="postList"></div>
+</main>
+
+</body>
+</html>

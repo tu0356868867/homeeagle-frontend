@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<title>Waiting Roomate</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+
+<div class="logo">
+    🏠 Finding Roomate
+</div>
+
+<nav>
+    <a href="Home_page.html">Home</a>
+    <a href="Lookingfor_Roomate.html">Find Roommate</a>
+    <a href="Waiting_Roomate.html">Waiting Roomate</a>
+    <a href="#" id = "moreBtn">My Account</a>
+    <div class="popup" id="popup">
+
+            <a class="popup-item" onclick="openProfilePopup()">
+            <i class="fa-regular fa-circle-user"></i>
+            <span>Profile</span>
+            </a>
+
+            <a class="popup-item" id="historyBtn">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>History</span>
+            </a>
+
+            <a class="popup-item" onclick="openFeedbackPopup()">
+                <i class="fa-regular fa-comment"></i>
+                <span>Feedback</span>
+            </a>
+             <!-- Popup History -->
+            <div class="history-popup" id="history">
+                <!-- HEADER -->
+
+                 <div class="history-header">
+                    <div class="history-title">
+                        Đặt phòng
+                    </div>
+                </div>
+            
+
+                 <div class="history-tabs">
+                    <a class="history-tab">Địa Chỉ</a>
+
+                    <a class="history-tab">Trạng Thái</a>
+                </div>
+
+   
+            <!-- CONTENT -->
+             <div class ="history-content"
+                id="historyContent">
+             </div>
+
+        </div>
+            <div class="divider"></div>
+
+        <a class="popup-item" id="logoutBtn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+             <span>Logout</span>
+        </a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Waiting your best friend over there</h1>
+
+</section>
+
+<div id="profileOverlay" class="profile-overlay">
+
+        <div class="profile-popup">
+            <!-- TITLE -->
+            <div class="profile-title">
+                Edit profile
+            </div>
+            <!-- USER NAME -->
+            <div class="input-group">
+                <label>
+                    User name
+                </label>
+                <input 
+                    type="text" id="Username"  placeholder="username" 
+                    autocomplete="name" minlength="3" maxlength="30"
+                    pattern="^[a-zA-Z0-9_]+$" required>
+            </div>
+            <!-- PASSWORD -->
+            <div class="input-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password" id="password" placeholder="Tối thiểu 8 ký tự" minlength="8" maxlength="100" required>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="profile-description">
+                Your profile helps us recognize you in our system.
+            </div>
+
+
+            <!-- BUTTONS -->
+            <div class="profile-actions">
+
+                <button
+                    class="cancel-button"
+                    onclick="closeProfilePopup()">
+                    Cancel
+                </button>
+
+                <button
+                    class="save-button"
+                    onclick="saveProfile()">
+                    Save
+                </button>
+
+            </div>
+
+        </div>
+
+</div>
+
+<div class="rent-form" id ="form">
+
+    <input type="text" id="Address"
+               placeholder="Address"
+               maxlength="200"
+               required>
+
+    <input type="number" id = "Max_Roomate"
+           placeholder="Enter max roomates per room"
+           min = "1"
+           required>
+
+    <input type="number" id="Price"
+               placeholder="Price (VND/month)"
+               min="1"
+               required>
+
+    <select id="RoomType" required>
+        <option value="">-- Select room type --</option>
+        <option>2 Ngủ 1 Khách</option>
+        <option>1 Ngủ 1 Khách</option>
+        <option>Duplex</option>
+        <option>Studio</option>
+        <option>Nguyên Căn</option>
+    </select>
+
+     <input type="number" id="Number"
+               placeholder="Area (m²)"
+               min="1"
+               required>
+
+
+    <input
+            type="tel" id="Contact"
+            name="phone"
+            placeholder="Số điện thoại liên hệ"
+            maxlength="15"
+            autocomplete="tel"
+            required>
+
+    
+     <input type="url"
+               id="Picture"
+               placeholder="Link ảnh phòng"
+               maxlength="2048"
+               required>
+
+    <textarea rows="3"
+                  id="Description"
+                  placeholder="Mô tả"
+                  maxlength="200"
+                ></textarea>
+
+
+    <div class="form-buttons">
+
+    <button
+        type="button"
+        class="btn-post"
+        onclick="create()">
+        ＋ Save 
+    </button>
+
+    <button
+        type="button"
+        class="btn-edit"
+        onclick="editRoom()">
+        ✎ Chỉnh sửa
+    </button>
+
+    <button
+        type="button"
+        class="btn-delete"
+        onclick="deleteRoom()">
+        🗑 Xóa
+    </button>
+
+</div>
+
+</div>
+
+<div class="feedbackOverlay" id = "FeedbackOverlay">
+    <div class="feedback-container">
+        <h2>Feedback</h2>
+        <div class="feedback-content">
+
+            <textarea
+                placeholder="Your feedback helps us improve our service..."
+                id="content" 
+                maxlength="1000"
+                required>
+            </textarea>
+        </div>
+
+        <button type="submit"
+                onclick = saveFeedBack()>
+            Send
+        </button>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+<script src="js/waiting.js"></script>
+</body>
+</html>

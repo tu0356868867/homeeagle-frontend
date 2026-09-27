@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<title>Manager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Overlay -->
+
+<div class="container">
+
+    <div class="sidebar">
+        <h2>🏠Home</h2>
+
+        <ul>
+            <li>
+                <a href="Manager_Apartment.html">
+                <i class="fa-solid fa-house"></i>
+                Home
+                </a>
+            </li>
+            <li>
+                <a href="Add.html">
+                <i class="fa-solid fa-plus"></i>
+                Thêm mới
+                </a>
+            </li>
+            <li>
+                <a href="List_customer.html">
+                <i class="fa-solid fa-list"></i>
+                Danh sách
+                </a>
+            </li>
+            <li href="#" id = "moreBtn">
+                <i class="fa-solid fa-gear"></i>
+                Setting
+                
+                <div class="popup" id="popup">
+
+                    <div class="popup-item" onclick="openProfilePopup()">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span>Profile</span>
+                    </div>
+
+                    <div class="popup-item" onclick="openFeedbackPopup()">
+                        <i class="fa-regular fa-comment"></i>
+                        <span>Feedback</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="popup-item" id="logoutBtn">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main">
+
+        <!-- Thống kê -->
+        <div class="cards">
+
+            <div class="card">
+                <h3>Tổng số phòng</h3>
+                <div class="number" id="totalRooms">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Doanh thu dự kiến</h3>
+                <div class="number" id="projectedRevenue">0</div>
+            </div>
+        </div>
+
+        <!-- Danh sách phòng -->
+        <div class="section">
+
+            <h2>Danh Sách Phòng</h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Địa chỉ</th>
+                    <th>Số Lượng</th>
+                    <th>Loại</th>
+                    <th>Giá Thuê</th>
+                    <th>Thao Tác</th>
+                </tr>
+                </thead>
+
+                <tbody id="roomTableBody">
+                    <!-- JS sẽ render phòng ở đây -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div id="profileOverlay" class="profile-overlay">
+
+        <div class="profile-popup">
+            <!-- TITLE -->
+            <div class="profile-title">
+                Edit profile
+            </div>
+            <!-- USER NAME -->
+            <div class="input-group">
+                <label>
+                    Username
+                </label>
+                <input
+                    type="text" id="Username"  placeholder="username" 
+                    autocomplete="name" minlength="3" maxlength="30"
+                    pattern="^[a-zA-Z0-9_]+$" required>
+            </div>
+            <!-- PASSWORD -->
+            <div class="input-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password" id="password" placeholder="Tối thiểu 8 ký tự" minlength="8" maxlength="100" required>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="profile-description">
+                Your profile helps us recognize you in our system.
+            </div>
+
+
+            <!-- BUTTONS -->
+            <div class="profile-actions">
+
+                <button
+                    class="cancel-button"
+                    onclick="closeProfilePopup()">
+                    Cancel
+                </button>
+
+                <button
+                    class="save-button"
+                    onclick="saveProfile()">
+                    Save
+                </button>
+
+            </div>
+
+        </div>
+
+</div>
+
+<div class="feedbackOverlay" id = "FeedbackOverlay">
+    <div class="feedback-container">
+        <h2>Feedback</h2>
+        <div class="feedback-content">
+
+            <textarea
+                placeholder="Your feedback helps us improve our service..."
+                id="content" 
+                maxlength="1000"
+                required>
+            </textarea>
+        </div>
+
+        <button type="submit"
+                onclick = saveFeedBack()>
+            Send
+        </button>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+<script src="js/manager.js"></script>
+</body>
+</html>

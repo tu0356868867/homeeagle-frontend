@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<title>Manager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>🏠 Thêm mới</h2>
+
+
+        <ul>
+            <li>
+                <a href="Manager_Apartment.html">
+                <i class="fa-solid fa-house"></i>
+                Home
+                </a>  
+            </li>
+            <li>
+                <a href="Add.html">
+                <i class="fa-solid fa-plus"></i>
+                Thêm mới
+                </a>
+            </li>
+            <li>
+                <a  href="List_customer.html">
+                <i class="fa-solid fa-list"></i>
+                Danh sách
+                </a>
+                
+            </li>
+            <li href="#" id = "moreBtn">
+                <i class="fa-solid fa-gear"></i>
+                Setting
+                
+                <div class="popup" id="popup">
+
+                    <div class="popup-item" onclick="openProfilePopup()">
+                        <i class="fa-regular fa-circle-user"></i>
+                        <span>Profile</span>
+                    </div>
+
+                    <div class="popup-item" onclick="openFeedbackPopup()">
+                        <i class="fa-regular fa-comment"></i>
+                        <span>Feedback</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="popup-item" id="logoutBtn">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+</div>
+
+
+    <!-- MAIN -->
+<div class="main">
+
+    <form class="rent-form" id="rentForm">
+
+        <input type="text"
+               id="Address"
+               placeholder="Address"
+               maxlength="200"
+               required>
+
+        <input type="number"
+               id="Price"
+               placeholder="Price (VND/month)"
+               min="1"
+               required>
+
+        <select id="roomType" required>
+            <option value="">-- Select room type --</option>
+            <option value="2 Ngủ 1 Khách">2 Ngủ 1 Khách</option>
+            <option value="1 Ngủ 1 Khách">1 Ngủ 1 Khách</option>
+            <option value="Duplex">Duplex</option>
+            <option value="Studio">Studio</option>
+            <option value="Home Stay">Home Stay</option>
+            <option value="Nhà đất">Nhà đất</option>
+            <option value="Mặt bằng văn phòng, kinh doanh">
+                Mặt bằng văn phòng, kinh doanh
+            </option>
+        </select>
+
+        <input type="number"
+               id="Number"
+               placeholder="Area (m²)"
+               min="1"
+               required>
+
+        <input type="number"
+               id="Quantity"
+               placeholder="Số phòng"
+               min="1"
+               required>
+
+        <input
+            type="tel"
+            id="Contact"
+            name="phone"
+            placeholder="Số điện thoại liên hệ"
+            maxlength="15"
+            autocomplete="tel"
+            required>
+
+        <input type="url"
+               id="Picture"
+               placeholder="Link ảnh phòng"
+               maxlength="2048"
+               required>
+
+        <textarea rows="3"
+                  id="Description"
+                  placeholder="Mô tả"
+                  maxlength="200"
+                ></textarea>
+
+        <button type="submit" id="postBtn">
+            Save
+        </button>
+
+        <p id="message"></p>
+
+    </form>
+
+</div>
+
+</div>
+
+<div id="profileOverlay" class="profile-overlay">
+
+        <div class="profile-popup">
+            <!-- TITLE -->
+            <div class="profile-title">
+                Edit profile
+            </div>
+            <!-- USER NAME -->
+            <div class="input-group">
+                <label>
+                    Username
+                </label>
+                <input
+                    type="text" id="Username"  placeholder="username" 
+                    autocomplete="name" minlength="3" maxlength="30"
+                    pattern="^[a-zA-Z0-9_]+$" required>
+            </div>
+            <!-- PASSWORD -->
+            <div class="input-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password" id="password" placeholder="Tối thiểu 8 ký tự" minlength="8" maxlength="100" required>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="profile-description">
+                Your profile helps us recognize you in our system.
+            </div>
+
+
+            <!-- BUTTONS -->
+            <div class="profile-actions">
+
+                <button
+                    class="cancel-button"
+                    onclick="closeProfilePopup()">
+                    Cancel
+                </button>
+
+                <button
+                    class="save-button"
+                    onclick="saveProfile()">
+                    Save
+                </button>
+
+            </div>
+
+        </div>
+
+</div>
+
+
+<div class="feedbackOverlay" id = "FeedbackOverlay">
+    <div class="feedback-container">
+        <h2>Feedback</h2>
+        <div class="feedback-content">
+
+            <textarea
+                placeholder="Your feedback helps us improve our service..."
+                id="content" 
+                maxlength="1000"
+                required>
+            </textarea>
+        </div>
+
+        <button type="submit"
+            onclick = saveFeedBack()>
+            Send
+        </button>
+    </div>
+</div>
+
+
+ <script src="js/script.js"></script>
+ <script src="js/add.js"></script>
+</body>
+    
+</html>

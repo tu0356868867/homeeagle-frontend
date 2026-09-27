@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a2540;
+            --cream: #f9f6f1;
+            --terracotta: #c96a3b;
+            --terracotta-dark: #a8542c;
+            --sage: #4a7c6f;
+            --sage-light: #e8f2ef;
+            --gold: #d4a843;
+            --gold-light: #fdf4e1;
+            --muted: #6b7280;
+            --border: #e2ddd7;
+            --white: #ffffff;
+            --error: #dc2626;
+        }
+
+        body {
+             background: linear-gradient(135deg, #74ebd5, #9face6);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            padding: 24px;
+        }
+
+
+        .card {
+            background:#ffffff;
+            width: 100%;
+            max-width: 460px;
+            border-radius: 20px;
+            
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        /* Top stripe accent */
+        .card-accent {
+            height: 4px;
+           
+        }
+
+        .card-body {
+            padding: 36px 36px 28px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        
+
+        
+
+        .brand-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            color: var(--navy);
+            letter-spacing: -0.3px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        /* Role Selector */
+        .role-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .role-toggle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .role-btn {
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            border-radius: 12px;
+            padding: 14px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-btn:hover {
+            border-color: var(--navy);
+            background: var(--cream);
+        }
+
+        .role-btn.active-customer {
+            border-color: var(--sage);
+            background: var(--sage-light);
+        }
+
+        .role-btn.active-landlord {
+            border-color: var(--gold);
+            background: var(--gold-light);
+        }
+
+        .role-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .role-icon.customer {
+            background: rgba(74,124,111,0.15);
+        }
+
+        .role-icon.landlord {
+            background: rgba(212,168,67,0.18);
+        }
+
+        .role-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .role-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .role-desc {
+            font-size: 11px;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .role-check {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .role-btn.active-customer .role-check {
+            background: var(--sage);
+            border-color: var(--sage);
+        }
+
+        .role-btn.active-landlord .role-check {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .role-check svg {
+            width: 10px;
+            height: 10px;
+            fill: white;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .role-btn.active-customer .role-check svg,
+        .role-btn.active-landlord .role-check svg {
+            opacity: 1;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"]
+         {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input::placeholder {
+            color: #8d8585;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--navy);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(26,37,64,0.06);
+        }
+
+        /* Landlord-only fields (hidden initially) */
+        .landlord-fields {
+            display: none;
+            overflow: hidden;
+            animation: slideDown 0.25s ease;
+        }
+
+        .landlord-fields.visible {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .field-section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin: 20px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .field-section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gold-light);
+            border: 1px solid rgba(212,168,67,0.25);
+        }
+
+        /* Password row */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* CTA button */
+        .btn-register {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: all 0.2s ease;
+            letter-spacing: 0.01em;
+            font-family: 'Inter', sans-serif;
+            background-color: #4CAF50;
+        }
+        .btn-register:active {
+            background-color:red;
+        }
+
+
+
+        .btn-landlord {
+            background: var(--navy);
+            color: white;
+        }
+
+        
+
+        .btn-register:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .card-footer {
+            padding: 20px 36px 28px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .login-link {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .login-link a {
+            color: var(--navy);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .login-link a:hover {
+            color: var(--terracotta);
+        }
+
+        /* Terms */
+        .terms {
+            font-size: 11.5px;
+            color: var(--muted);
+            margin-top: 14px;
+            line-height: 1.5;
+        }
+
+        .terms a {
+            color: var(--navy);
+            text-decoration: underline;
+            text-decoration-color: rgba(26,37,64,0.25);
+        }
+
+        /* Role badge on button */
+        .role-badge {
+            display: inline-block;
+            font-size: 11px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            padding: 1px 6px;
+            margin-left: 6px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .card-body { padding: 28px 22px 20px; }
+            .card-footer { padding: 18px 22px 24px; }
+            .two-col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card" id = "myForm">
+    <div class="card-accent"></div>
+    <div class="card-body">
+
+
+        <h2>Tạo tài khoản</h2>
+        
+
+        <!-- Role Toggle -->
+        <div class="role-toggle">
+            <button class="role-btn active-customer" id="btn-customer" onclick="selectRole('RENTER')" type="button">
+                <div class="role-check">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="role-icon customer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a7c6f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                    </svg>
+                </div>
+                <span class="role-name">Renter</span>
+                <span class="role-desc">Tìm kiếm nhà để thuê</span>
+            </button>
+
+            <button class="role-btn" id="btn-landlord" onclick="selectRole('LANDLORD')" type="button">
+                <div class="role-check">
+                    <svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="role-icon landlord">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="10" width="20" height="12" rx="1"/><path d="M6 10V7a6 6 0 1112 0v3"/><line x1="12" y1="15" x2="12" y2="17"/>
+                    </svg>
+                </div>
+                <span class="role-name">Landlord</span>
+                <span class="role-desc">Đăng tin cho thuê bất động sản</span>
+            </button>
+        </div>
+
+        <!-- Form -->
+        <form id="register-form">
+
+            <div class="form-group">
+            <label for="username">Tên user</label>
+
+            <input 
+               type="text" id="username"  placeholder="username" 
+                autocomplete="name" minlength="3" maxlength="30"
+                 pattern="^[a-zA-Z0-9_]+$" required>
+
+            <small id="username-error" class="error-message"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Họ và tên</label>
+                <input type="text" id="fullname" placeholder="Họ và tên của bạn" autocomplete="name"
+                 minlength="2" maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Địa chỉ email</label>
+                <input type="email" id="email" placeholder="you@example.com" autocomplete="email" autocomplete="email" maxlength="254" required>
+            </div>
+
+            <div class="two-col">
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" placeholder="Tối thiểu 8 ký tự" minlength="8" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Xác nhận</label>
+                    <input type="password" id="confirm-password" placeholder="Xác nhận mật khẩu" minlength="8" maxlength="100" required>
+                </div>
+            </div>
+
+            <button class="btn-register btn-customer" id="register-btn" type="submit">
+                Tạo tài khoản
+            </button>
+
+        </form>
+    </div>
+
+    <div class="card-footer">
+        <div class="login-link">
+            Bạn đã có tài khoản? <a href="login.html">Đăng nhập</a>
+        </div>
+        <div class="terms">
+            Bằng cách đăng ký, bạn đồng ý với <a href="#">Điều khoản dịch vụ</a> and <a href="#">Chính sách bảo mật</a>.
+        </div>
+    </div>
+</div>
+
+<script>
+    let selectedRole = 'RENTER';
+
+        function selectRole(role) {
+             selectedRole = role;
+             const btnCustomer = document.getElementById('btn-customer');
+             const btnLandlord = document.getElementById('btn-landlord');
+
+    // Xóa màu cũ
+            btnCustomer.className = 'role-btn';
+            btnLandlord.className = 'role-btn';
+
+            if (role === 'LANDLORD') {
+
+                btnLandlord.classList.add('active-landlord');
+
+            } else {
+                btnCustomer.classList.add('active-customer');
+    }
+        }
+    async function Create_Acount() {
+
+    document.getElementById("myForm").addEventListener("submit", async function (e) {
+
+        e.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const fullname = document.getElementById("fullname").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const confirmPassword = document.getElementById("confirm-password").value.trim();
+        // Kiểm tra dữ liệu
+        if (!username) {
+            alert("Vui lòng nhập username");
+            return;
+        }
+
+        if (!fullname) {
+            alert("Vui lòng nhập đầy đủ Họ và Tên");
+            return;
+        }
+
+        if (!email) {
+            alert("Vui lòng nhập email");
+            return;
+        }
+
+        if (!password) {
+            alert("Vui lòng nhập password");
+            return;
+        }
+
+        if (!confirmPassword) {
+            alert("Vui lòng nhập xác nhận");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Mật khẩu không khớp!");
+            return;
+        }
+
+        // Tạo request body
+        const requestBody = {
+            username,
+            password,
+            fullname,
+            email,
+            roles: [selectedRole]
+        };
+
+        try {
+
+            const response = await fetch(
+                "http://localhost:8080/users",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestBody)
+                }
+            );
+
+            if (response.ok) {
+
+                const data = await response.json();
+
+                alert("Đăng ký thành công");
+                console.log(data);
+
+                window.open("login.html", "_blank");
+
+            } else {
+
+                const data = await response.json();
+
+                console.log(data.message);
+                alert(data.message);
+
+                return;
+            }
+
+        } catch (error) {
+            console.error("Message:", error.message);
+            alert("Không thể kết nối đến server");
+
+        }
+
+    });
+}
+
+Create_Acount();
+
+</script>
+
+</body>
+</html>
