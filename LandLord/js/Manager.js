@@ -6,16 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 async function loadMyRooms() {
-     const csrfToken = getCookie("XSRF-TOKEN");
     try {
         const response = await fetch(
             "http://192.168.42.70:8080/homes/manager",
             {
                 method: "GET",
                 credentials: "include",
-                headers: {
-                        "X-XSRF-TOKEN": csrfToken
-                }
             }
         );
 
