@@ -538,7 +538,7 @@
             email,
             roles: [selectedRole]
         };
-
+        const csrfToken = getCookie("XSRF-TOKEN");
         try {
 
             const response = await fetch(
