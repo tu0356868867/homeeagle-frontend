@@ -538,6 +538,10 @@
             email,
             roles: [selectedRole]
         };
+        await fetch("https://homeeagle.site/csrf", {
+        method: "GET",
+        credentials: "include"
+        });
         const csrfToken = getCookie("XSRF-TOKEN");
         try {
 
