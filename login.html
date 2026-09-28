@@ -117,14 +117,14 @@
             password: password
         };
 
-        await fetch("https://192.168.42.70:8080/csrf", {
+        await fetch("https://homeeagle.site/csrf", {
         method: "GET",
         credentials: "include"
         });
         const csrfToken = getCookie("XSRF-TOKEN");
         try {
             const response = await fetch(
-                "http://192.168.42.70:8080/auth/log-in",
+                "https://homeeagle.site/auth/log-in",
                 {
                     method: "POST",
                      credentials: "include",
